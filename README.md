@@ -22,7 +22,8 @@
   - All team members collaborated throughout the project, from design and development to troubleshooting and deployment,
     ensuring successful completion and integration of all components.
 
-
+### Video Link
+https://drive.google.com/file/d/1kCopzYp0pHBRkqG7tChvw2I1FRR9h0ow/view
 
 ## Introduction
  The telecom industry plays a crucial role in enabling communication across regions,
