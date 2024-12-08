@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KYC Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Include Chart.js -->
+    <style>
+        .customer-list-section h3 {
+            color: #1F4A94; 
+        }
+        .chart-container {
+            max-width: 400px; 
+            margin: auto;
+            margin-top: 20px;
+        }
+        canvas {
+            display: block;
+            max-width: 100%; 
+            height: 300px; 
+        }
+        /* Style for MapReduce Results Box */
+        .mapreduce-box {
+            background-color: #1F4A94; /* Same color as header */
+            color: white; /* Text color inside the box */
+            border: 1px solid #1F4A94;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        .mapreduce-box h3 {
+            margin-bottom: 10px;
+        }
+        .mapreduce-box p {
+            margin: 5px 0;
+        }
+        .nationality-box {
+            background-color: #28a745; /* Different color for nationality counts */
+            color: white; /* Text color inside the box */
+            border: 1px solid #28a745;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        .nationality-box h3 {
+            margin-bottom: 10px;
+        }
+        .nationality-box p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Breadcrumb Navigation -->
+        <nav class="breadcrumb">
+            <a href="{% url 'kyc_home' %}">KYC Home</a> › 
+            <a href="{% url 'dashboard' %}">Dashboard</a> › 
+        </nav>
+
+        <!-- Title Section -->
+        <div class="title-box">
+            <h1>KYC Dashboard</h1>
+            <!-- Logout Link -->
+            <a href="{% url 'logout' %}" class="logout-link">Logout</a>
+        </div>
+        
+        <!-- Subscriber Details Section -->
+        <section class="statistics-section">
+            <h2>Subscriber Details</h2>
+            <div class="statistics">
+                <div class="stat-box">
+                    <strong>Total Subscribers:</strong> {{ total_count }}
+                </div>
+                <div class="stat-box">
+                    <strong>Male Subscribers:</strong> {{ male_count }}
+                </div>
+                <div class="stat-box">
+                    <strong>Female Subscribers:</strong> {{ female_count }}
+                </div>
+            </div>
+        </section>
+
+        <!-- Bar Graph Section -->
+        <div class="chart-container">
+            <canvas id="subscriberChart"></canvas>
+        </div>
+
+        <!-- Add Customer Button -->
+        <div class="button-container">
+            <a href="{% url 'customer_create' %}" class="btn">Add Customer</a>
+        </div>
+
+        <!-- Full Customer List Section -->
+        <section class="customer-list-section">
+            <h3>All Customers</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Date of Birth</th>
+                        <th>Gender</th>
+                        <th>ID Number</th>
+                        <th>ID Type</th>
+                        <th>Nationality</th>
+                        <th>Created At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for customer in customers %}
+                    <tr>
+                        <td>{{ customer.first_name }}</td>
+                        <td>{{ customer.last_name }}</td>
+                        <td>{{ customer.date_of_birth }}</td>
+                        <td>{{ customer.get_gender_display }}</td>
+                        <td>{{ customer.id_number }}</td>
+                        <td>{{ customer.get_id_type_display }}</td>
+                        <td>{{ customer.nationality }}</td>
+                        <td>{{ customer.created_at|date:"d M Y H:i" }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="8" style="text-align: center;">No customers available.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+
+        <!-- MapReduce Results Section in a Box with Header Color -->
+        <section class="mapreduce-box">
+            <h3>Customer Count by Gender (MapReduce)</h3>
+            <p>Male: {{ mapreduce_results.M }}</p>
+            <p>Female: {{ mapreduce_results.F }}</p>
+        </section>
+
+        <!-- Nationality Count Section -->
+        <section class="nationality-box">
+            <h3>Customer Count by Nationality (MapReduce)</h3>
+            {% for nationality, count in mapreduce_results.nationality.items %}
+                <p>{{ nationality }}: {{ count }}</p>
+            {% endfor %}
+        </section>
+
+        <!-- Recent Customers Section -->
+        <section class="recent-customers-section">
+            <h3>Recent Customers</h3>
+            <ul>
+                {% for customer in recent_customers %}
+                    <li>{{ customer.first_name }} {{ customer.last_name }} ({{ customer.get_gender_display }})</li>
+                {% empty %}
+                    <li>No recent customers.</li>
+                {% endfor %}
+            </ul>
+        </section>
+    </div>
+
+    <script>
+        // Data for the bar graph
+        const ctx = document.getElementById('subscriberChart').getContext('2d');
+        const subscriberChart = new Chart(ctx, {
+            type: 'bar', // Specify bar chart
+            data: {
+                labels: ['Total Subscribers', 'Male Subscribers', 'Female Subscribers'], // Labels for the bars
+                datasets: [{
+                    label: 'Subscriber Counts',
+                    data: [{{ total_count }}, {{ male_count }}, {{ female_count }}], // Dynamic data from backend
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.6)', // Color for Total Subscribers
+                        'rgba(75, 192, 192, 0.6)', // Color for Male Subscribers
+                        'rgba(255, 99, 132, 0.6)'  // Color for Female Subscribers
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 99, 132, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true // Start y-axis at 0
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false // Hide the legend
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

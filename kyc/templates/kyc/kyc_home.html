@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KYC Home</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        h2 {
+            font-size: 2.5rem; /* Increased font size */
+            font-weight: bold; /* Bold text */
+        }
+    </style>
+</head>
+<body>
+    <div class="home-container">
+        <a href="{% url 'logout' %}" class="logout-link">Logout</a>
+
+        <!-- Breadcrumb Navigation -->
+        <nav class="breadcrumb">
+            <span>KYC Home</span> ›
+            <a href="{% url 'dashboard' %}">Dashboard</a>
+        </nav>
+
+        <!-- Title Section -->
+        <h2>Welcome to the KYC Portal</h2>
+
+        <!-- Statistics Box -->
+        <div class="statistics-box">
+            <div class="stat-box">
+                <strong>Total Subscribers:</strong> {{ total_count }}
+            </div>
+            <div class="stat-box">
+                <strong>Male Subscribers:</strong> {{ male_count }}
+            </div>
+            <div class="stat-box">
+                <strong>Female Subscribers:</strong> {{ female_count }}
+            </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="button-container">
+            <a href="{% url 'customer_create' %}" class="btn">Add New Customer</a>
+        </div>
+    </div>
+</body>
+</html>

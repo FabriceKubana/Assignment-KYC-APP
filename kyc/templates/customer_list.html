@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer List</title>
+    <style>
+        body {
+            background-color: white;
+            color: red;
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 80%;
+            margin: auto;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid red;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: red;
+            color: white;
+        }
+        a {
+            color: red;
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 10%;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        h2 {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Customer List</h2>
+    <a href="{% url 'customer_create' %}">Add Customer</a>
+    <table>
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Date of Birth</th>
+                <th>Gender</th>
+                <th>ID Number</th>
+                <th>ID Type</th>
+                <th>Nationality</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for customer in customers %}
+            <tr>
+                <td>{{ customer.first_name }}</td>
+                <td>{{ customer.last_name }}</td>
+                <td>{{ customer.date_of_birth }}</td>
+                <td>{{ customer.get_gender_display }}</td>
+                <td>{{ customer.id_number }}</td>
+                <td>{{ customer.get_id_type_display }}</td>
+                <td>{{ customer.nationality }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

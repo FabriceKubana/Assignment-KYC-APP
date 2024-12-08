@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Details</title>
+    <style>
+        body {
+            background-color: white; 
+            color: red;
+            font-family: Arial, sans-serif;
+        }
+        .content-container {
+            background-color: red; 
+            color: white; 
+            width: 90%; 
+            margin: 20px auto; 
+            padding: 20px;
+            border-radius: 10px;
+            position: relative;
+        }
+        .title-box {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            background-color: red; 
+            color: white; 
+            padding: 5px 10px;
+            font-size: 24px; 
+            font-weight: bold;
+            border-radius: 5px;
+        }
+        table {
+            width: 100%; 
+            border-collapse: collapse;
+            margin-top: 60px; 
+            background-color: white; 
+            color: red; 
+        }
+        th, td {
+            border: 1px solid red;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: red;
+            color: white;
+        }
+        .button-container {
+            text-align: right; /* Align button to the right */
+            margin-top: 10px;
+        }
+        a {
+            background-color: white; /* Button style */
+            color: red; /* Text color for button */
+            padding: 5px 10px; /* Reduced button size */
+            border: 1px solid red;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px; /* Reduced font size */
+        }
+        a:hover {
+            background-color: darkred;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="content-container">
+        <div class="title-box">Customer Details</div> <!-- Move title to the top left -->
+        <table>
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Date of Birth</th>
+                    <th>Gender</th>
+                    <th>ID Number</th>
+                    <th>ID Type</th>
+                    <th>Nationality</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for customer in customers %}
+                <tr>
+                    <td>{{ customer.first_name }}</td>
+                    <td>{{ customer.last_name }}</td>
+                    <td>{{ customer.date_of_birth }}</td>
+                    <td>{{ customer.get_gender_display }}</td>
+                    <td>{{ customer.id_number }}</td>
+                    <td>{{ customer.get_id_type_display }}</td>
+                    <td>{{ customer.nationality }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" style="text-align: center;">No customers available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="button-container">
+            <a href="{% url 'customer_create' %}">Add Customer</a> <!-- Smaller button size -->
+        </div>
+    </div>
+</body>
+</html>

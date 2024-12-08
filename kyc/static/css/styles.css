@@ -1,0 +1,141 @@
+/* General styles */
+body {
+    background-color: #003366; /* Dark blue background */
+    color: white; /* White text */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Dashboard container */
+.dashboard-container {
+    width: 98%;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #00509e; /* Blue border */
+    border-radius: 10px;
+    margin-top: 50px;
+    background-color: #e6f1ff; 
+    position: relative;
+}
+
+/* Title box */
+.title-box {
+    background-color: #00509e; /* Blue background */
+    color: white;
+    padding: 15px 10px;
+    font-size: 15px; /* Larger font size for the title */
+    font-weight: bold;
+    border-radius: 5px;
+    margin-top: 20px; 
+    text-align: center;
+}
+
+/* Heading 2 */
+h2 {
+    text-align: center;
+    color: #00509e; /* Dark blue text */
+    margin-top: 20px; /* Space below title box */
+    font-size: 1.5rem;
+}
+
+/* Statistics section */
+.statistics {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #abcff8; /* Very light blue background */
+    border-radius: 10px;
+}
+
+/* Individual stat box */
+.stat-box {
+    text-align: center;
+    font-size: 18px;
+    color: #003366; /* Dark blue text */
+}
+
+/* Table styles */
+table {
+    width: 99%; /* Make the table take up full width */
+    margin: 20px 0;
+    border-collapse: collapse;
+    background-color: white;
+    color: #003366; /* Dark blue text */
+}
+
+th, td {
+    border: 1px solid #00509e; /* Blue border */
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #00509e; /* Blue background */
+    color: white;
+}
+
+/* Link styles */
+a {
+    background-color: rgb(255, 255, 255);
+    color: #00509e; /* Blue text */
+    padding: 5px 10px;
+    border: 1px solid #00509e; /* Blue border */
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+a:hover {
+    background-color: #608fbf; /* Dark blue background */
+    color: rgb(27, 108, 229); /* White text */
+}
+
+/* Logout link */
+.logout-link {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-weight: bold;
+    color: rgb(52, 88, 230);
+    text-decoration: none;
+}
+
+.logout-link:hover {
+    color: #00509e; /* Blue text */
+}
+
+/* Button container */
+.button-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* Breadcrumb styles */
+.breadcrumb {
+    font-size: 14px;
+    color: #00509e; /* Blue text */
+    margin-top: 20px; /* Space between breadcrumb and title */
+    margin-bottom: 20px;
+    background-color: #d9ebff; /* Light blue background */
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Breadcrumb links */
+.breadcrumb a {
+    color: #00509e; /* Blue text */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+/* Breadcrumb current page */
+.breadcrumb span {
+    color: #003366; /* Dark blue text */
+}

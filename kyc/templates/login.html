@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KYC Agent Login</title>
+    <style>
+        body {
+            background-color: white;
+            font-family: Arial, sans-serif;
+        }
+        .form-container {
+            width: 30%;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid rgb(22, 39, 106);
+            border-radius: 10px;
+            margin-top: 50px;
+            background-color: rgb(18, 45, 102); /
+        }
+        .form-container label, 
+        .form-container button,
+        .form-container h2 {
+            color: white; 
+            font-weight: bold; 
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            font-weight: bold; 
+        }
+        button {
+            background-color: rgb(35, 47, 80);
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: rgb(102, 165, 237);
+        }
+        .logout-button {
+            background-color: darkred;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .logout-button:hover {
+            background-color: crimson;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2 style="text-align: center;">KYC Agent Login</h2>
+
+        {% if user.is_authenticated %}
+            <!-- If the user is authenticated, show the logout button -->
+            <p>You are already logged in.</p>
+            <a href="{% url 'logout' %}" class="logout-button">Logout</a>
+        {% else %}
+            <!-- If the user is not authenticated, show the login form -->
+            <form method="post">
+                {% csrf_token %}
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit">Login</button>
+            </form>
+        {% endif %}
+
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</body>
+</html>

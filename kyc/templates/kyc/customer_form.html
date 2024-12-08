@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Registration Form</title>
+    <style>
+        body {
+            background-color: rgba(30, 77, 123, 0.272); 
+            color: rgba(30, 59, 133, 0.963); 
+            font-family: Arial, sans-serif;
+        }
+        .form-container {
+            width: 70%;
+            margin: auto;
+            padding: 20px;
+            background-color: rgba(31, 59, 105, 0.986); 
+            color: white; 
+            border: 1px solid rgba(37, 77, 146, 0.932); 
+            border-radius: 10px;
+            margin-top: 50px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid white; 
+            border-radius: 5px;
+            background-color: white; 
+            color: #1F4A94; 
+            box-sizing: border-box;
+        }
+        button {
+            background-color: rgba(241, 242, 246, 0.941); 
+            color: #1F4A94; 
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: rgb(67, 167, 222);
+            color: rgb(244, 245, 249); 
+        }
+        h2 {
+            text-align: center;
+            color: white; 
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Customer Registration Form</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
